@@ -1,0 +1,7 @@
+*.exe
+*.dat
+.vscode/
+
+ver_inventario.cpp
+ver_mozos.cpp
+dump_datos_de_prueba.txt
