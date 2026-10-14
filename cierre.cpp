@@ -92,11 +92,9 @@ bool validarDiario(FILE* archivo, const char nombre[]) {
     return fseek(archivo, 0, SEEK_SET) == 0;
 }
 
-// El temporal solo se publica cuando se completo toda la escritura.
 bool publicarCierre(const char temporal[], const char destino[]) {
     if (rename(temporal, destino) == 0) return true;
 
-    // En Windows, rename no reemplaza un archivo existente.
     char respaldo[80];
     sprintf(respaldo, "%s.bak", destino);
     FILE* existente = fopen(destino, "rb");
@@ -130,7 +128,6 @@ int main() {
         cout << "Error: use sX-mm, con X entre 1 y 6 y mes entre 01 y 12." << endl;
         return 1;
     }
-    // La consigna no define las fechas de sX: se pide el comienzo explicitamente.
     cout << "Fecha inicial de la semana (DD-MM-AAAA): ";
     if (!cin.getline(textoFecha, sizeof(textoFecha)) || !leerFecha(textoFecha, fecha)) {
         cout << "Error: fecha invalida." << endl;
@@ -193,8 +190,6 @@ int main() {
 
     bool correcto = true;
     long long cantidadComandas = 0;
-    // Apareo de hasta siete archivos ordenados: se escribe el menor id disponible.
-    // Se conserva cada venta, incluso cuando se repite un mozo o un producto.
     while (correcto) {
         int menor = -1;
         for (int i = 0; i < DIAS_SEMANA; i++) {
